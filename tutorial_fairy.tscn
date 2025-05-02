@@ -1,10 +1,38 @@
-[gd_scene load_steps=127 format=3 uid="uid://behmm4aut0wx4"]
+[gd_scene load_steps=129 format=3 uid="uid://behmm4aut0wx4"]
 
 [ext_resource type="PackedScene" uid="uid://clpl5nyi4y6ji" path="res://tutorial_fairy.vrm" id="1_8co4e"]
 [ext_resource type="Script" uid="uid://b78ekbcn4bqyr" path="res://addons/vrm/vrm_spring_bone.gd" id="2_ls0xw"]
 [ext_resource type="Script" uid="uid://dydbd3j00d08q" path="res://tutorial_fairy.gd" id="2_unf1a"]
+[ext_resource type="Script" uid="uid://dlkeo0h6dj8ka" path="res://addons/vrm/vrm_meta.gd" id="3_qw6ux"]
 [ext_resource type="Script" uid="uid://cjrr1mtdcyb2" path="res://addons/vrm/vrm_collider_group.gd" id="3_unf1a"]
 [ext_resource type="Script" uid="uid://ch5xrueavbm8j" path="res://addons/vrm/vrm_collider.gd" id="4_qw6ux"]
+
+[sub_resource type="Resource" id="Resource_iawgl"]
+resource_name = "CLICK TO SEE METADATA"
+script = ExtResource("3_qw6ux")
+title = ""
+version = ""
+authors = PackedStringArray()
+author = ""
+contact_information = ""
+references = PackedStringArray()
+reference_information = ""
+allowed_user_name = ""
+violent_usage = ""
+sexual_usage = ""
+commercial_usage_type = ""
+political_religious_usage = ""
+antisocial_hate_usage = ""
+credit_notation = ""
+allow_redistribution = ""
+modification = ""
+other_permission_url = ""
+license_name = ""
+license_url = ""
+third_party_licenses = ""
+other_license_url = ""
+exporter_version = ""
+spec_version = ""
 
 [sub_resource type="Resource" id="Resource_ra3ac"]
 resource_name = "Bust"
@@ -1499,7 +1527,7 @@ colliders = Array[ExtResource("4_qw6ux")]([SubResource("Resource_3w8j5")])
 
 [node name="tutorial_fairy" instance=ExtResource("1_8co4e")]
 script = ExtResource("2_unf1a")
-vrm_meta = null
+vrm_meta = SubResource("Resource_iawgl")
 spring_bones = Array[ExtResource("2_ls0xw")]([SubResource("Resource_ra3ac"), SubResource("Resource_6wmac"), SubResource("Resource_s2bxr"), SubResource("Resource_ukni4"), SubResource("Resource_rmu0h"), SubResource("Resource_a8bgx"), SubResource("Resource_pss7t"), SubResource("Resource_n0gr6"), SubResource("Resource_7b1kv"), SubResource("Resource_l3kiy"), SubResource("Resource_r4cmi"), SubResource("Resource_pul5t"), SubResource("Resource_4uslq"), SubResource("Resource_6yd1m"), SubResource("Resource_gm6f3"), SubResource("Resource_pw3nf"), SubResource("Resource_4ubc2"), SubResource("Resource_cx40e"), SubResource("Resource_2k1bt"), SubResource("Resource_j2cjr"), SubResource("Resource_fbufo"), SubResource("Resource_hj7gb"), SubResource("Resource_y138y"), SubResource("Resource_0ya1a"), SubResource("Resource_njl5g"), SubResource("Resource_etgoq"), SubResource("Resource_d35f0"), SubResource("Resource_pffht"), SubResource("Resource_5c3gw"), SubResource("Resource_ws7se"), SubResource("Resource_rrtvg"), SubResource("Resource_igw4s"), SubResource("Resource_svi38"), SubResource("Resource_u7gat"), SubResource("Resource_2gq7o"), SubResource("Resource_d2s5u"), SubResource("Resource_kwfvd"), SubResource("Resource_5qqfp"), SubResource("Resource_ej8fo"), SubResource("Resource_am15l"), SubResource("Resource_wae7m")])
 collider_groups = Array[ExtResource("3_unf1a")]([SubResource("Resource_hu3pl"), SubResource("Resource_jrc70"), SubResource("Resource_7mwio"), SubResource("Resource_j82rx"), SubResource("Resource_8iqta"), SubResource("Resource_dtypw"), SubResource("Resource_pah4e"), SubResource("Resource_qtvdn"), SubResource("Resource_252uq"), SubResource("Resource_8ycna"), SubResource("Resource_i23nc"), SubResource("Resource_lh82c")])
 collider_library = Array[ExtResource("4_qw6ux")]([SubResource("Resource_dtn00"), SubResource("Resource_judpr"), SubResource("Resource_slt0d"), SubResource("Resource_xpgs3"), SubResource("Resource_3btgh"), SubResource("Resource_j8e2c"), SubResource("Resource_tjypc"), SubResource("Resource_23f1m"), SubResource("Resource_y3ray"), SubResource("Resource_ppmfr"), SubResource("Resource_3kbkf"), SubResource("Resource_bs2mq"), SubResource("Resource_nk6n0"), SubResource("Resource_qfvcs"), SubResource("Resource_pm7h3"), SubResource("Resource_mx7yc"), SubResource("Resource_wkiay"), SubResource("Resource_gyu01"), SubResource("Resource_3go0d"), SubResource("Resource_6vwkp"), SubResource("Resource_ingkb"), SubResource("Resource_ep6uw"), SubResource("Resource_pk63o"), SubResource("Resource_v6b2j"), SubResource("Resource_4dc7n"), SubResource("Resource_5wjmi"), SubResource("Resource_p6ysd"), SubResource("Resource_dfcc2")])
@@ -1512,7 +1540,7 @@ collider_groups = Array[ExtResource("3_unf1a")]([SubResource("Resource_c11w6"), 
 collider_library = Array[ExtResource("4_qw6ux")]([SubResource("Resource_ls0xw"), SubResource("Resource_unf1a"), SubResource("Resource_qw6ux"), SubResource("Resource_im2rb"), SubResource("Resource_jfls3"), SubResource("Resource_an8eq"), SubResource("Resource_oxc8k"), SubResource("Resource_g1l23"), SubResource("Resource_464g8"), SubResource("Resource_xcxxq"), SubResource("Resource_fg08n"), SubResource("Resource_4ciry"), SubResource("Resource_ako8o"), SubResource("Resource_umlm6"), SubResource("Resource_v1vdo"), SubResource("Resource_gomk0"), SubResource("Resource_1q03i"), SubResource("Resource_tcdgq"), SubResource("Resource_22wr0"), SubResource("Resource_4dvs4"), SubResource("Resource_kfxt4"), SubResource("Resource_seo8x"), SubResource("Resource_cuyii"), SubResource("Resource_wgm2l"), SubResource("Resource_3b5q2"), SubResource("Resource_pujnt"), SubResource("Resource_8qmfv"), SubResource("Resource_3w8j5")])
 
 [node name="Camera3D" type="Camera3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.865194, 1.33951)
+transform = Transform3D(0.720817, 0, 0.693125, 0, 1, 0, -0.693125, 0, 0.720817, 1.01001, 0.865194, 1.07225)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10655, 3.42993)

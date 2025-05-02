@@ -1,6 +1,7 @@
 @tool
 extends VRMTopLevel
 
+#@onready var skeleton = get_node("GeneralSkeleton")
 var skeleton
 #var id
 
@@ -8,14 +9,14 @@ var bone
 var coordinate
 
 func _ready():
+	#super._ready()
+	
+	print("Hello, script launched")
+	
 	skeleton = get_node("GeneralSkeleton")
 	var count = skeleton.get_bone_count()
 	print("bone count:", count)
 	
-	'''
-	for i in range(count):
-		print(skeleton.get_bone_name(i))
-	'''
 	
 	'''
 	other useful functions:
@@ -36,21 +37,16 @@ func _ready():
 	coordinate = 0
 	
 	set_process(true)
+	#skeleton.set_process(true)
 
 var LLowerArm = Vector3()
 var LUpperArm = Vector3()
 
 #copied these functions nearly straight out of the tutorial
-func set_bone_rot(bone, ang):
-	var id = skeleton.find_bone(bone) #identifies bone
+func set_bone_rot(my_bone, ang):
+	var id = skeleton.find_bone(my_bone) #identifies bone
 	var rest_rotation = skeleton.get_bone_rest(id) #gets bone default position
 	
-	#var basis = rest_rotation.basis
-	'''var x_axis = rest_rotation.basis.x
-	var y_axis = rest_rotation.basis.y
-	var z_axis = rest_rotation.basis.z'''
-	
-	#print(rest_rotation)
 	
 	var newpose = rest_rotation.rotated_local(Vector3(1.0, 0.0, 0.0), ang.x) #sequentially performs x, y, and z rotations
 	newpose = newpose.rotated_local(Vector3(0.0, 1.0, 0.0), ang.y)
@@ -60,18 +56,9 @@ func set_bone_rot(bone, ang):
 	
 
 
-
-
-
-
 func _process(delta):
-	'''
-	var t = skeleton.get_bone_pose(id)
-	t = t.rotated(Vector3(1.0, 0.0, 0.0), 0.1 * delta)
-	skeleton.set_bone_pose(id, t)
-	
-	#print("bone transform: ", t)
-	'''
+	#print("process running")
+
 	if Input.is_action_pressed("X"):
 		coordinate = 0
 	elif Input.is_action_pressed("Y"):
@@ -97,8 +84,3 @@ func _process(delta):
 	set_bone_rot("LeftLowerArm", LLowerArm * delta)
 	set_bone_rot("LeftUpperArm", LUpperArm * delta)
 	
-	#set_bone_rot("LeftLowerArm", Vector3(1, 0, 0))
-	#set_bone_rot("LeftUpperArm", Vector3(0, 1, 0))
-	
-	#print("coordinate: ", coordinate)
-	#print("bone: ", bone)
