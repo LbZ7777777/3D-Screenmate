@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://clmohsiweg1d7"]
+[gd_scene load_steps=6 format=3 uid="uid://clmohsiweg1d7"]
 
 [ext_resource type="Script" uid="uid://dvc88mgetlgsk" path="res://main_world_2d.gd" id="1_1a5lk"]
 [ext_resource type="PackedScene" uid="uid://bw3tn0odg8kgn" path="res://animated_character.tscn" id="1_s7wcm"]
@@ -8,13 +8,16 @@ viewport_path = NodePath("Screenmate/SubViewport")
 
 [sub_resource type="World3D" id="World3D_1a5lk"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qclq"]
+size = Vector2(314, 425)
+
 [node name="Node" type="Node"]
 script = ExtResource("1_1a5lk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Screenmate" type="Sprite2D" parent="."]
-visibility_layer = 3
+visibility_layer = 2
 texture = SubResource("ViewportTexture_7qclq")
 
 [node name="SubViewport" type="SubViewport" parent="Screenmate"]
@@ -28,3 +31,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762814, 1.53562)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Screenmate/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14279, 6.84868)
+
+[node name="Area2D" type="Area2D" parent="Screenmate"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Screenmate/Area2D"]
+position = Vector2(2, -3.5)
+shape = SubResource("RectangleShape2D_7qclq")

@@ -21,6 +21,15 @@ var my_subviewport : SubViewport
 #var my_bookshelf : Node2D
 var character_sprite : Sprite2D
 
+#click and drag variables
+var my_area : Area2D
+var my_collider : CollisionShape2D
+var shape : RectangleShape2D
+var has_mouse : bool = false
+var speed : int
+
+
+
 func _ready():
 	#windows configurations
 	my_main_window = get_window()
@@ -29,6 +38,9 @@ func _ready():
 	my_subviewport = get_node("Screenmate/SubViewport")
 	character_sprite = get_node("Screenmate")
 	#my_sub_window.world_2d = my_main_window.world_2d
+	
+	my_area = character_sprite.get_node("Area2D")
+	my_collider = my_area.get_node("CollisionShape2D")
 	
 	get_tree().get_root().set_transparent_background(true)
 	get_viewport().transparent_bg = true
@@ -62,6 +74,21 @@ func _ready():
 	#print(character_sprite.get_index())
 	#print(my_sprites[0].get_index())
 	#print(my_sprites.size())
+	
+	#click and drag stuff
+	'''shape = RectangleShape2D.new()
+	shape.size = my_subviewport.size
+	my_collider.set_shape(shape)'''
+	#print("Texture size: ", texture_size)
+	
+	#print_tree()
+	get_settings()
+	speed = settings[5][1].to_int()
+	
+	my_area.mouse_entered.connect(_on_area_2d_mouse_entered)
+	my_area.mouse_exited.connect(_on_area_2d_mouse_exited)
+	
+	set_process(true)
 
 
 func get_settings():
@@ -89,6 +116,16 @@ func _process(delta):
 	#print_tree()
 	
 	my_main_window.set_position(get_window_pos_from_camera())
+	my_area.position = my_main_window.position
+	my_collider.position = my_area.position
+	
+	
+
+func _physics_process(delta: float):
+	
+	if has_mouse and Input.is_action_pressed("left_click"):
+		var float_position = Vector2(my_main_window.position.x, my_main_window.position.y)
+		my_main_window.position = float_position.lerp(my_subviewport.get_global_mouse_position(), speed * delta)
 
 
 func load_sprite(filename):
@@ -97,7 +134,7 @@ func load_sprite(filename):
 	add_child(furniture_obj)
 	
 	my_sprites.append(get_node("furniture"))
-	my_sprites[-1]._ready()
+	#my_sprites[-1]._ready() #seems extraneous
 	
 	#print_tree()
 	
@@ -108,6 +145,16 @@ func load_sprite(filename):
 	#print(my_sprites[-1].get_texture())
 	
 	var window = my_sprites[-1].get_node("Window")
-	window._ready()
+	#window._ready() #might be unneeded
 	window.world_2d = my_main_window.world_2d
 	
+
+func _on_area_2d_mouse_entered():
+	if not Input.is_action_pressed("left_click"):
+		has_mouse = true
+		print("character has mouse: ", has_mouse)
+
+func _on_area_2d_mouse_exited():
+	if not Input.is_action_pressed("left_click"):
+		has_mouse = false
+		print("character has mouse: ", has_mouse)
