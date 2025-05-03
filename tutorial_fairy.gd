@@ -55,7 +55,7 @@ func set_bone_rot(my_bone, ang):
 	skeleton.set_bone_pose(id, newpose)
 	
 
-
+var count = 0
 func _process(delta):
 	#print("process running")
 
@@ -83,4 +83,5 @@ func _process(delta):
 	
 	set_bone_rot("LeftLowerArm", LLowerArm * delta)
 	set_bone_rot("LeftUpperArm", LUpperArm * delta)
-	
+	#set_bone_rot("Head", Vector3(count, 0.0, 0.0) * delta)
+	#count += 1
