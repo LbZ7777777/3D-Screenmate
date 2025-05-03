@@ -31,8 +31,8 @@ func _ready():
 	
 	transparent_bg = true
 	
-	set_canvas_cull_mask_bit(player_visibility_layer, true)
-	set_canvas_cull_mask_bit(world_visibility_layer, false)
+	set_canvas_cull_mask_bit(player_visibility_layer, false)
+	set_canvas_cull_mask_bit(world_visibility_layer, true)
 
 
 func get_camera_pos_from_window():
@@ -44,7 +44,9 @@ func _process(delta):
 	last_position = position
 	
 	var camera_position_2d = get_camera_pos_from_window()
-	position = camera_position_2d
+	my_camera.position = camera_position_2d
+	
+	#print(camera_position_2d, position, velocity)
 
 #this function also exists already as set_size(Vector2i)
 '''func resize(x, y):
