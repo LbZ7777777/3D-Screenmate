@@ -24,7 +24,7 @@ func _ready():
 	get_viewport().transparent_bg = true
 	ProjectSettings.set_setting("display/window/per_pixel_transparency/allowed", true)
 	borderless = true
-	unresizable = true
+	#unresizable = true
 	always_on_top = true
 	gui_embed_subwindows = false
 	transparent = true
