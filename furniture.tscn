@@ -7,6 +7,7 @@
 script = ExtResource("1_yv02d")
 
 [node name="Window" parent="." instance=ExtResource("1_fugw3")]
+position = Vector2i(0, 36)
 
 [node name="Sprite2D" type="Sprite2D" parent="Window"]
 centered = false

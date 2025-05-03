@@ -88,6 +88,8 @@ func _ready():
 	my_area.mouse_entered.connect(_on_area_2d_mouse_entered)
 	my_area.mouse_exited.connect(_on_area_2d_mouse_exited)
 	
+	#my_area.visible = true
+	
 	set_process(true)
 
 
