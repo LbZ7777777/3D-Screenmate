@@ -18,6 +18,8 @@ var my_main_camera : Camera2D
 
 var my_subviewport : SubViewport
 
+#var my_bookshelf : Node2D
+var character_sprite : Sprite2D
 
 func _ready():
 	#windows configurations
@@ -25,7 +27,7 @@ func _ready():
 	#my_sub_window = get_node("Window")
 	my_main_camera = get_node("Camera2D") #. . .why geegaz . . . why do this export_node_path thing?
 	my_subviewport = get_node("Screenmate/SubViewport")
-	
+	character_sprite = get_node("Screenmate")
 	#my_sub_window.world_2d = my_main_window.world_2d
 	
 	get_tree().get_root().set_transparent_background(true)
@@ -51,6 +53,16 @@ func _ready():
 	my_main_window.set_canvas_cull_mask_bit(world_visibility_layer, false)
 	
 	load_sprite("bookshelf")
+	#my_bookshelf = get_node("bookshelf")
+	#my_bookshelf.set_texture(load("res://bookshelf.png"))
+	
+	#adjust draw order
+	#var character_node_level = character_sprite.get_index()
+	adjust_draw_order()
+	#print(character_sprite.get_index())
+	#print(my_sprites[0].get_index())
+	#print(my_sprites.size())
+
 
 func get_settings():
 	settings = [] #reset array
@@ -66,6 +78,10 @@ func get_window_pos_from_camera():
 	var player_size = my_subviewport.get_size()
 	return Vector2i(my_main_camera.global_position + my_main_camera.offset) - player_size / 2
 
+func adjust_draw_order():
+	#move_child(character_sprite, my_sprites.size() + 1)
+	character_sprite.move_to_front()
+
 func _process(delta):
 	#print(get_window_pos_from_camera())
 	#print(my_main_camera.offset)
@@ -74,12 +90,13 @@ func _process(delta):
 	
 	my_main_window.set_position(get_window_pos_from_camera())
 
+
 func load_sprite(filename):
-	var the_sprite = load("res://Accessory.tscn")
-	var the_sprite_obj = the_sprite.instantiate()
-	add_child(the_sprite_obj)
+	var furniture = load("res://furniture.tscn")
+	var furniture_obj = furniture.instantiate()
+	add_child(furniture_obj)
 	
-	my_sprites.append(get_node("Accessory"))
+	my_sprites.append(get_node("furniture"))
 	my_sprites[-1]._ready()
 	
 	#print_tree()

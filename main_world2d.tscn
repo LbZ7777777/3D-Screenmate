@@ -14,7 +14,7 @@ script = ExtResource("1_1a5lk")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Screenmate" type="Sprite2D" parent="."]
-visibility_layer = 2
+visibility_layer = 3
 texture = SubResource("ViewportTexture_7qclq")
 
 [node name="SubViewport" type="SubViewport" parent="Screenmate"]
