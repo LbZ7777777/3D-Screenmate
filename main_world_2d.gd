@@ -2,7 +2,7 @@
 credits to geegaz's Multiple-Windows-tutorial
 '''
 
-extends Node
+extends Node2D
 
 var my_main_window : Window
 #var my_sub_window : Window
@@ -22,12 +22,8 @@ var my_subviewport : SubViewport
 var character_sprite : Sprite2D
 
 #click and drag variables
-var my_area : Area2D
-var my_collider : CollisionShape2D
-var shape : RectangleShape2D
 var has_mouse : bool = false
 var speed : int
-
 
 
 func _ready():
@@ -38,9 +34,6 @@ func _ready():
 	my_subviewport = get_node("Screenmate/SubViewport")
 	character_sprite = get_node("Screenmate")
 	#my_sub_window.world_2d = my_main_window.world_2d
-	
-	my_area = character_sprite.get_node("Area2D")
-	my_collider = my_area.get_node("CollisionShape2D")
 	
 	get_tree().get_root().set_transparent_background(true)
 	get_viewport().transparent_bg = true
@@ -85,12 +78,11 @@ func _ready():
 	get_settings()
 	speed = settings[5][1].to_int()
 	
-	my_area.mouse_entered.connect(_on_area_2d_mouse_entered)
-	my_area.mouse_exited.connect(_on_area_2d_mouse_exited)
 	
 	#my_area.visible = true
 	
 	set_process(true)
+	set_physics_process(true)
 
 
 func get_settings():
@@ -118,16 +110,17 @@ func _process(delta):
 	#print_tree()
 	
 	my_main_window.set_position(get_window_pos_from_camera())
-	my_area.position = my_main_window.position
-	my_collider.position = my_area.position
 	
 	
 
 func _physics_process(delta: float):
+	mouse_in_window()
 	
 	if has_mouse and Input.is_action_pressed("left_click"):
 		var float_position = Vector2(my_main_window.position.x, my_main_window.position.y)
-		my_main_window.position = float_position.lerp(my_subviewport.get_global_mouse_position(), speed * delta)
+		my_main_window.position = float_position.lerp(DisplayServer.mouse_get_position(), speed * delta)
+		
+		#print(my_main_window.position)
 
 
 func load_sprite(filename):
@@ -151,12 +144,19 @@ func load_sprite(filename):
 	window.world_2d = my_main_window.world_2d
 	
 
-func _on_area_2d_mouse_entered():
-	if not Input.is_action_pressed("left_click"):
-		has_mouse = true
-		print("character has mouse: ", has_mouse)
-
-func _on_area_2d_mouse_exited():
-	if not Input.is_action_pressed("left_click"):
-		has_mouse = false
-		print("character has mouse: ", has_mouse)
+func mouse_in_window():
+	var mouse_pos = DisplayServer.mouse_get_position()
+	
+	if Input.is_action_pressed("left_click"):
+		return has_mouse
+	
+	has_mouse = false
+	if mouse_pos.x > character_sprite.position.x:
+		if mouse_pos.y > character_sprite.position.y:
+			if mouse_pos.x < (character_sprite.position.x + my_subviewport.size.x):
+				if mouse_pos.y < (character_sprite.position.y + my_subviewport.size.y):
+					has_mouse = true
+	
+	#print(collision)
+	
+	return has_mouse
