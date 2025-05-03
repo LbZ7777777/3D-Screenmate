@@ -9,7 +9,10 @@ var action_script
 var bone_list
 
 func _ready():
+	var secondary_node = get_node("secondary") #calling all constructors in the vrm scene
+	secondary_node._ready()
 	
+	#setting up animation stuff
 	skeleton = get_node("GeneralSkeleton")
 	var count = skeleton.get_bone_count()
 	print("bone count:", count)
