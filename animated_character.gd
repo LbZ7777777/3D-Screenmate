@@ -11,7 +11,7 @@ func _ready():
 	character = scene.instantiate()
 	add_child(character)
 	
-	print_tree()
+	#print_tree()
 	
 	node = get_node("tutorial_fairy")
 	#print(node)
