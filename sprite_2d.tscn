@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6prk4260y5c2"]
+
+[ext_resource type="PackedScene" uid="uid://bfno5k2jp2cqd" path="res://subwindow_2d.tscn" id="1_f7cmv"]
+
+[node name="Sprite2D" type="Sprite2D"]
+
+[node name="Window" parent="." instance=ExtResource("1_f7cmv")]
+position = Vector2i(0, 36)

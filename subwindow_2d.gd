@@ -1,9 +1,16 @@
+'''
+credits to geegaz's Multiple-Windows-tutorial
+'''
+
 extends Window
 
 var my_camera : Camera2D
 
 var last_position : = Vector2i.ZERO
 var velocity : = Vector2i.ZERO
+
+@export_range(0, 19) var player_visibility_layer : int = 1
+@export_range(0, 19) var world_visibility_layer : int = 0
 
 func _ready():
 	my_camera = get_node("Camera2D")
@@ -24,6 +31,8 @@ func _ready():
 	
 	transparent_bg = true
 	
+	set_canvas_cull_mask_bit(player_visibility_layer, true)
+	set_canvas_cull_mask_bit(world_visibility_layer, false)
 
 
 func get_camera_pos_from_window():
@@ -36,3 +45,9 @@ func _process(delta):
 	
 	var camera_position_2d = get_camera_pos_from_window()
 	position = camera_position_2d
+
+#this function also exists already as set_size(Vector2i)
+'''func resize(x, y):
+	size = Vector2i(x, y)'''
+
+#the Window class already has a set_position(Vector2i) member
