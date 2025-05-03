@@ -70,6 +70,8 @@ func load_animation(filename : String = "idle"):
 				var index = action_script.find(content[0])
 				action_script[index].append(content)
 		#print(action_script)
+		
+		file.close() #proper file management
 
 
 

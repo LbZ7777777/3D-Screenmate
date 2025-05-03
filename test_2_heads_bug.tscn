@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b27gtubkoh2bh"]
+
+[ext_resource type="PackedScene" uid="uid://bw3tn0odg8kgn" path="res://animated_character.tscn" id="1_lcdvd"]
+
+[node name="Node" type="Node"]
+
+[node name="animated_character" parent="." instance=ExtResource("1_lcdvd")]
+
+[node name="Camera3D" type="Camera3D" parent="animated_character"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.716518, 1.3649)

@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://d01bqm3y0pgo7"]
+
+[ext_resource type="PackedScene" uid="uid://bw3tn0odg8kgn" path="res://animated_character.tscn" id="1_xokhp"]
+
+[sub_resource type="Gradient" id="Gradient_hswdu"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vsysi"]
+gradient = SubResource("Gradient_hswdu")
+
+[sub_resource type="Gradient" id="Gradient_eknjt"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xokhp"]
+gradient = SubResource("Gradient_eknjt")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hswdu"]
+viewport_path = NodePath("Sprite2D2/SubViewport")
+
+[sub_resource type="World3D" id="World3D_xokhp"]
+
+[node name="Node" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.22065)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = SubResource("GradientTexture2D_vsysi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+texture = SubResource("GradientTexture2D_xokhp")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = SubResource("ViewportTexture_hswdu")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite2D2"]
+world_3d = SubResource("World3D_xokhp")
+transparent_bg = true
+
+[node name="animated_character" parent="Sprite2D2/SubViewport" instance=ExtResource("1_xokhp")]
+
+[node name="Camera3D" type="Camera3D" parent="Sprite2D2/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.764194, 1.82865)
