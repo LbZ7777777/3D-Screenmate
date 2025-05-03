@@ -52,8 +52,8 @@ func _process(delta):
 	
 	position = my_subwindow.position
 	my_sprite.position = my_subwindow.position
-	my_area.position = my_subwindow.position
-	my_collider.position = my_subwindow.position
+	my_area.position = 1.0 * my_subwindow.position + 0.5 * texture_size #offset and coordinate system scaling differences
+	#my_collider.position = 0.5 * my_subwindow.position
 	#position = Vector2i(0, 0)
 	#my_subwindow.position = Vector2i(100, 100)
 	
@@ -71,6 +71,11 @@ func _physics_process(delta: float):
 	if has_mouse and Input.is_action_pressed("left_click"):
 		var float_position = Vector2(my_subwindow.position.x, my_subwindow.position.y)
 		my_subwindow.position = float_position.lerp(get_global_mouse_position(), speed * delta)
+	
+	#print("mouse is at: ", get_global_mouse_position())
+	#print("window is at: ", my_subwindow.position)
+
+
 
 func set_texture(my_texture):
 	my_sprite.set_texture(my_texture)
@@ -93,14 +98,17 @@ func set_texture(my_texture):
 
 
 func _on_area_2d_mouse_entered():
-	if not Input.is_action_pressed("left_click"):
-		has_mouse = true
-		print("furniture has mouse: ", has_mouse)
+	has_mouse = true
+	print("furniture has mouse: ", has_mouse)
 
 func _on_area_2d_mouse_exited():
-	if not Input.is_action_pressed("left_click"):
-		has_mouse = false
-		print("furniture has mouse: ", has_mouse)
+	
+	while Input.is_action_pressed("left_click"):
+		has_mouse = true
+		await get_tree().create_timer(0.1).timeout
+	
+	has_mouse = false
+	print("furniture has mouse: ", has_mouse)
 
 func get_settings():
 	settings = [] #reset array
