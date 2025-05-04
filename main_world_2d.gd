@@ -21,13 +21,12 @@ var my_subviewport : SubViewport
 #var my_bookshelf : Node2D
 var character_sprite : Sprite2D
 
+var the_character_3d : Node3D
+var the_camera_3d : Camera3D
+
 #click and drag variables
-var my_area : Area2D
-var my_collider : CollisionShape2D
-var shape : RectangleShape2D
 var has_mouse : bool = false
 var speed : int
-
 
 
 func _ready():
@@ -38,9 +37,12 @@ func _ready():
 	my_subviewport = get_node("Screenmate/SubViewport")
 	character_sprite = get_node("Screenmate")
 	#my_sub_window.world_2d = my_main_window.world_2d
+	the_character_3d = my_subviewport.get_node("animated_character")
+	the_camera_3d = my_subviewport.get_node("Camera3D")
 	
-	my_area = character_sprite.get_node("Area2D")
-	my_collider = my_area.get_node("CollisionShape2D")
+	character_sprite.texture = my_subviewport.get_texture()
+	character_sprite.visible = true
+	the_character_3d.visible = true
 	
 	get_tree().get_root().set_transparent_background(true)
 	get_viewport().transparent_bg = true
@@ -85,12 +87,11 @@ func _ready():
 	get_settings()
 	speed = settings[5][1].to_int()
 	
-	my_area.mouse_entered.connect(_on_area_2d_mouse_entered)
-	my_area.mouse_exited.connect(_on_area_2d_mouse_exited)
 	
 	#my_area.visible = true
 	
 	set_process(true)
+	set_physics_process(true)
 
 
 func get_settings():
@@ -110,24 +111,41 @@ func get_window_pos_from_camera():
 func adjust_draw_order():
 	#move_child(character_sprite, my_sprites.size() + 1)
 	character_sprite.move_to_front()
+	
+	#character_sprite.visible = true
+	#my_subviewport.visible = true
 
 func _process(delta):
-	#print(get_window_pos_from_camera())
+	print("other target: ", get_window_pos_from_camera())
 	#print(my_main_camera.offset)
 	#print(my_main_window.position)
 	#print_tree()
 	
 	my_main_window.set_position(get_window_pos_from_camera())
-	my_area.position = my_main_window.position
-	my_collider.position = my_area.position
 	
 	
 
 func _physics_process(delta: float):
+	mouse_in_window()
 	
 	if has_mouse and Input.is_action_pressed("left_click"):
+		print("triggered")
+		
 		var float_position = Vector2(my_main_window.position.x, my_main_window.position.y)
-		my_main_window.position = float_position.lerp(my_subviewport.get_global_mouse_position(), speed * delta)
+		my_main_camera.position = float_position.lerp(DisplayServer.mouse_get_position(), speed * delta)
+		character_sprite.position = my_main_camera.position
+		
+		#print(my_main_window.position)
+	print("window position: ", my_main_window.position)
+	print("2d camera location: ", my_main_camera.position)
+	print("2d character location: ", character_sprite.position)
+	print("mouse location: ", DisplayServer.mouse_get_position())
+	print("collision: ", has_mouse)
+	print("clicking: ", Input.is_action_pressed("left_click"))
+	print("character location: ", the_character_3d.position)
+	print("3d camera location: ", the_camera_3d.position)
+	print(character_sprite.texture)
+
 
 
 func load_sprite(filename):
@@ -151,12 +169,19 @@ func load_sprite(filename):
 	window.world_2d = my_main_window.world_2d
 	
 
-func _on_area_2d_mouse_entered():
-	if not Input.is_action_pressed("left_click"):
-		has_mouse = true
-		print("character has mouse: ", has_mouse)
-
-func _on_area_2d_mouse_exited():
-	if not Input.is_action_pressed("left_click"):
-		has_mouse = false
-		print("character has mouse: ", has_mouse)
+func mouse_in_window():
+	var mouse_pos = DisplayServer.mouse_get_position()
+	
+	if Input.is_action_pressed("left_click"):
+		return has_mouse
+	
+	has_mouse = false
+	if mouse_pos.x > character_sprite.position.x:
+		if mouse_pos.y > character_sprite.position.y:
+			if mouse_pos.x < (character_sprite.position.x + my_subviewport.size.x):
+				if mouse_pos.y < (character_sprite.position.y + my_subviewport.size.y):
+					has_mouse = true
+	
+	#print(collision)
+	
+	return has_mouse
