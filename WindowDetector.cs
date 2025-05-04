@@ -39,6 +39,10 @@ public partial class WindowDetector : Node
 	
 	// window to two opposite corners function
 	
+	//define a new custom signal
+	[Signal]
+	public delegate void ForegroundWindowEventHandler(int x1, int y1, int x2, int y2);
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -59,7 +63,8 @@ public partial class WindowDetector : Node
 			if (GetWindowRect(hwnd, out rect))
 			{
 				//I'll prob. have to change this into emitting a signal
-				GD.Print($"Foreground Window Rect: Left={rect.Left}, Top={rect.Top}, Right={rect.Right}, bottom={rect.Bottom}");
+				//GD.Print($"Foreground Window Rect: Left={rect.Left}, Top={rect.Top}, Right={rect.Right}, bottom={rect.Bottom}");
+				EmitSignal(SignalName.ForegroundWindow, rect.Left, rect.Top, rect.Right, rect.Bottom);
 			}
 			else
 			{
