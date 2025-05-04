@@ -1,12 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://clmohsiweg1d7"]
+[gd_scene load_steps=8 format=3 uid="uid://clmohsiweg1d7"]
 
 [ext_resource type="Script" uid="uid://dvc88mgetlgsk" path="res://main_world_2d.gd" id="1_1a5lk"]
 [ext_resource type="PackedScene" uid="uid://bw3tn0odg8kgn" path="res://animated_character.tscn" id="1_s7wcm"]
+[ext_resource type="Script" uid="uid://cafeav0kowumj" path="res://foreground_window.gd" id="3_hu112"]
+[ext_resource type="PackedScene" uid="uid://cw4v56d7xtkai" path="res://window_detector.tscn" id="4_gbdfg"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7qclq"]
 viewport_path = NodePath("Screenmate/SubViewport")
 
 [sub_resource type="World3D" id="World3D_7qclq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hu112"]
+radius = 46.0
+height = 390.0
 
 [node name="Node" type="Node"]
 script = ExtResource("1_1a5lk")
@@ -30,3 +36,15 @@ current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Screenmate/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14279, 9.10521)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Screenmate"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Screenmate/CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_hu112")
+
+[node name="ForegroundWindow" type="StaticBody2D" parent="."]
+script = ExtResource("3_hu112")
+
+[node name="window_detector" parent="ForegroundWindow" instance=ExtResource("4_gbdfg")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForegroundWindow"]

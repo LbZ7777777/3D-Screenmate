@@ -64,6 +64,7 @@ public partial class WindowDetector : Node
 			{
 				//I'll prob. have to change this into emitting a signal
 				//GD.Print($"Foreground Window Rect: Left={rect.Left}, Top={rect.Top}, Right={rect.Right}, bottom={rect.Bottom}");
+				GD.Print("Foreground window detected.");
 				EmitSignal(SignalName.ForegroundWindow, rect.Left, rect.Top, rect.Right, rect.Bottom);
 			}
 			else
