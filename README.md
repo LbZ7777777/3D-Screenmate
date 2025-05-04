@@ -27,5 +27,12 @@ The most frustrating animation bugs I encountered were:
 * not knowing when I had to manually call constructors, hence causing springbones to work improperly and for an extra, non-functional copy of the character model to be instantiated
 * not realizing my self-made interpolation equation would return a bad value when multiplying infinity by 0, and thereby causing bones transformed by the undefined values to completely vanish
 
+Most of the relevant Godot scenes for the animation system's development are still cluttering the GitHub.
+
 ## Other
 Because the animation system consumed so much of my time, I never prototyped the system for moving sprites around the user's desktop, and I certainly never prototyped the systems I did not have a chance to implement.
+
+# Design Implementation
+The final system only contains three main components:
+![image](https://github.com/user-attachments/assets/9dfb6d53-07a4-4ced-a00f-d0fb3b69d9c7)
+
