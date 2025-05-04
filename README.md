@@ -17,4 +17,15 @@ The screenmate program was developed in parts. First, early portions of a tutori
 Unfortunately, my decision to temporize full testing of the multiple windows system, especially with regards to my initially 3D workspace, meant this section's early design verification failed to catch the litany of issues I would later have with the windows.
 
 ## Animation
-After the multiple windows tutorial, I attempted to follow an outdated tutorial on animating a Skeleton3D Godot node.
+After the multiple windows tutorial, I attempted to follow an outdated tutorial on animating a Skeleton3D Godot node:
+https://docs.godotengine.org/en/3.0/tutorials/3d/working_with_3d_skeletons.html
+Because I went in-depth into this tutorial and ultimately converted it directly into the final Screenmate program, I did encounter bugs. In fact, whenever I thought I had finished the preliminary design verification for animations, as I proceeded to begin integration I would discover another error.
+
+The most frustrating animation bugs I encountered were:
+* the tutorial using global bone rotation transforms when it should have used local bone rotation transforms
+* struggling with Godot's input map b/c I didn't realize I forgot to adjust the function that actually executes a transform
+* not knowing when I had to manually call constructors, hence causing springbones to work improperly and for an extra, non-functional copy of the character model to be instantiated
+* not realizing my self-made interpolation equation would return a bad value when multiplying infinity by 0, and thereby causing bones transformed by the undefined values to completely vanish
+
+## Other
+Because the animation system consumed so much of my time, I never prototyped the system for moving sprites around the user's desktop, and I certainly never prototyped the systems I did not have a chance to implement.
