@@ -1,0 +1,6 @@
+camera_z 1.5
+screen_resolution_x 1920
+screen_resolution_y 1080
+bookshelf_x 400
+bookshelf_y 300
+drag_speed 50
