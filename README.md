@@ -41,3 +41,8 @@ My implementation philosophy was to find a relevant tutorial which looked legibl
 
 # Deisgn Testing
 My design testing was mostly limited to seeing whether an animation of the screenmate doing an impossible head roll would display properly as the design complexity grew. Somehow, this simple design test managed to reveal a bug infestation.
+
+# Summary, Conclusions and Future Work
+This project . . . really drove home the idea that things don't go as planned. Because I always thought that, after 1 or 2 bugs, the design which was so heavily inspired by tutorials would be ready to roll. But in this case, I think I always encountered bugs.
+
+I mention future work in my pull request comments. Future work includes optimizing the animation system's performance and fixing many small program bugs and eccentricities.
