@@ -6,9 +6,9 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_7qclq"]
 viewport_path = NodePath("Screenmate/SubViewport")
 
-[sub_resource type="World3D" id="World3D_1a5lk"]
+[sub_resource type="World3D" id="World3D_7qclq"]
 
-[node name="Node" type="Node2D"]
+[node name="Node" type="Node"]
 script = ExtResource("1_1a5lk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -18,8 +18,9 @@ visibility_layer = 2
 texture = SubResource("ViewportTexture_7qclq")
 
 [node name="SubViewport" type="SubViewport" parent="Screenmate"]
-world_3d = SubResource("World3D_1a5lk")
+world_3d = SubResource("World3D_7qclq")
 transparent_bg = true
+render_target_update_mode = 4
 
 [node name="animated_character" parent="Screenmate/SubViewport" instance=ExtResource("1_s7wcm")]
 
@@ -28,4 +29,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762814, 1.53562)
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Screenmate/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14279, 6.84868)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14279, 9.10521)
