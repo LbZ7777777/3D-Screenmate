@@ -35,4 +35,6 @@ Because the animation system consumed so much of my time, I never prototyped the
 # Design Implementation
 The final system only contains three main components:
 ![image](https://github.com/user-attachments/assets/9dfb6d53-07a4-4ced-a00f-d0fb3b69d9c7)
+These are the backbone of the intended screenmate program design, as they most heavily leverage the Godot game engine's features.
 
+My implementation philosophy was to find a relevant tutorial which looked legible--targeted towards individuals of my low expertise level--and to simply follow that tutorial until I encountered a bug. Then, I would do Google research for ways to tackle the bug. If I failed to find a bug fix that worked, I might revamp my design structure entirely. For instance, when attempting to let my sprites be dragged by mice, I initially attempted to use Area2D nodes but simply could not get the collision signals to work. As such, I resorted to a low level solution of essentially making my own Area2D functions. But those actually didn't work properly either until I worked my way through some other bugs!
