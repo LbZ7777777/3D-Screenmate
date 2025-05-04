@@ -56,7 +56,7 @@ func _physics_process(delta: float):
 	mouse_in_window()
 	
 	if has_mouse and Input.is_action_pressed("left_click"):
-		print("triggered")
+		#print("triggered")
 		
 		var float_position = Vector2(my_subwindow.position.x, my_subwindow.position.y)
 		my_subwindow.position = float_position.lerp(DisplayServer.mouse_get_position(), speed * delta)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw4v56d7xtkai"]
+
+[ext_resource type="Script" uid="uid://caossp016in18" path="res://WindowDetector.cs" id="1_dpr5b"]
+
+[node name="window_detector" type="Node"]
+script = ExtResource("1_dpr5b")

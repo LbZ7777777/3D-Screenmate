@@ -2,7 +2,7 @@
 credits to geegaz's Multiple-Windows-tutorial
 '''
 
-extends Node2D
+extends Node
 
 var my_main_window : Window
 #var my_sub_window : Window
@@ -21,6 +21,9 @@ var my_subviewport : SubViewport
 #var my_bookshelf : Node2D
 var character_sprite : Sprite2D
 
+var the_character_3d : Node3D
+var the_camera_3d : Camera3D
+
 #click and drag variables
 var has_mouse : bool = false
 var speed : int
@@ -34,6 +37,12 @@ func _ready():
 	my_subviewport = get_node("Screenmate/SubViewport")
 	character_sprite = get_node("Screenmate")
 	#my_sub_window.world_2d = my_main_window.world_2d
+	the_character_3d = my_subviewport.get_node("animated_character")
+	the_camera_3d = my_subviewport.get_node("Camera3D")
+	
+	character_sprite.texture = my_subviewport.get_texture()
+	character_sprite.visible = true
+	the_character_3d.visible = true
 	
 	get_tree().get_root().set_transparent_background(true)
 	get_viewport().transparent_bg = true
@@ -102,9 +111,12 @@ func get_window_pos_from_camera():
 func adjust_draw_order():
 	#move_child(character_sprite, my_sprites.size() + 1)
 	character_sprite.move_to_front()
+	
+	#character_sprite.visible = true
+	#my_subviewport.visible = true
 
 func _process(delta):
-	#print(get_window_pos_from_camera())
+	#print("other target: ", get_window_pos_from_camera())
 	#print(my_main_camera.offset)
 	#print(my_main_window.position)
 	#print_tree()
@@ -117,10 +129,23 @@ func _physics_process(delta: float):
 	mouse_in_window()
 	
 	if has_mouse and Input.is_action_pressed("left_click"):
+		print("triggered")
+		
 		var float_position = Vector2(my_main_window.position.x, my_main_window.position.y)
-		my_main_window.position = float_position.lerp(DisplayServer.mouse_get_position(), speed * delta)
+		my_main_camera.position = float_position.lerp(DisplayServer.mouse_get_position(), speed * delta)
+		character_sprite.position = my_main_camera.position
 		
 		#print(my_main_window.position)
+	'''print("window position: ", my_main_window.position)
+	print("2d camera location: ", my_main_camera.position)
+	print("2d character location: ", character_sprite.position)
+	print("mouse location: ", DisplayServer.mouse_get_position())
+	print("collision: ", has_mouse)
+	print("clicking: ", Input.is_action_pressed("left_click"))
+	print("character location: ", the_character_3d.position)
+	print("3d camera location: ", the_camera_3d.position)
+	print(character_sprite.texture)'''
+
 
 
 func load_sprite(filename):
