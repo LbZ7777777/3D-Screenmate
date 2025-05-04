@@ -28,6 +28,10 @@ var the_camera_3d : Camera3D
 var has_mouse : bool = false
 var speed : int
 
+#pseudo-gravity variable
+var detector : Node
+var rect = [0.0, 0.0, 100.0, 100.0]
+var y_max : int #ceiling (y points down); stop pseudo-gravity when reached
 
 func _ready():
 	#windows configurations
@@ -39,6 +43,9 @@ func _ready():
 	#my_sub_window.world_2d = my_main_window.world_2d
 	the_character_3d = my_subviewport.get_node("animated_character")
 	the_camera_3d = my_subviewport.get_node("Camera3D")
+	
+	detector = get_node("ForegroundWindow/window_detector")
+	detector.ForegroundWindow.connect(_on_window_update)
 	
 	character_sprite.texture = my_subviewport.get_texture()
 	character_sprite.visible = true
@@ -61,6 +68,7 @@ func _ready():
 	#my_sub_window.set_size(Vector2i(settings[3][1].to_int(), settings[4][1].to_int()))
 	
 	#my_sub_window.set_position(Vector2i(0, 0))
+	y_max = settings[2][1].to_int() - 0.5 * character_sprite.get_rect().size[1]
 	
 	#visibility layer things
 	my_main_window.set_canvas_cull_mask_bit(player_visibility_layer, true)
@@ -126,15 +134,29 @@ func _process(delta):
 	
 
 func _physics_process(delta: float):
+	#drag and drop
 	mouse_in_window()
 	
 	if has_mouse and Input.is_action_pressed("left_click"):
-		print("triggered")
+		#print("triggered")
 		
 		var float_position = Vector2(my_main_window.position.x, my_main_window.position.y)
 		my_main_camera.position = float_position.lerp(DisplayServer.mouse_get_position(), speed * delta)
 		character_sprite.position = my_main_camera.position
+	else:	
+		#pseudo-gravity
+		print("triggered")
 		
+		hit_foreground_window()
+		
+		if character_sprite.position.y < y_max:
+			var y_new = character_sprite.position.y + speed * delta
+			if y_new > y_max:
+				y_new = y_max - 1 #without the -1 the sprite would blow straight past the limit
+			
+			my_main_camera.position.y = y_new
+			character_sprite.position.y = y_new
+	
 		#print(my_main_window.position)
 	'''print("window position: ", my_main_window.position)
 	print("2d camera location: ", my_main_camera.position)
@@ -145,6 +167,7 @@ func _physics_process(delta: float):
 	print("character location: ", the_character_3d.position)
 	print("3d camera location: ", the_camera_3d.position)
 	print(character_sprite.texture)'''
+	
 
 
 
@@ -185,3 +208,21 @@ func mouse_in_window():
 	#print(collision)
 	
 	return has_mouse
+
+func hit_foreground_window():
+	var center_of_gravity = character_sprite.position #is centered, so no offset needed
+	
+	y_max = settings[2][1].to_int() - 0.5 * character_sprite.get_rect().size[1]
+	if center_of_gravity.y < rect[1]: #screenmate is higher than the foreground window
+		if (rect[0] < center_of_gravity.x) and (center_of_gravity.x < rect[2]): #screenmate is above foreground window
+			y_max = rect[1]
+			
+			print("triggered")
+			print("COG: ", center_of_gravity.y)
+			print("threshold: ", rect[1])
+			print("y_max: ", y_max)
+	
+
+
+func _on_window_update(x1, y1, x2, y2):
+	rect = [x1, y1, x2, y2]
