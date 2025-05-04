@@ -11,4 +11,10 @@ Instead, the final project managed to accomplish the most barebones of requireme
 Given my inability to achieve the desired vision within a time frame somewhat diminished by procrastinated and underestimated senior design and junior design Bop-it projects, a full six week development period would likely have been more fleshed out but still unable to fully accomplish my initial objectives.
 
 # Preliminary Design Verification
-The screenmate program was developed in parts.
+## Multiple Windows
+The screenmate program was developed in parts. First, early portions of a tutorial on using multiple windows in Godot was trialed.
+[geegaz-multiple-windows-tutorial.zip](https://github.com/user-attachments/files/20025941/geegaz-multiple-windows-tutorial.zip)
+Unfortunately, my decision to temporize full testing of the multiple windows system, especially with regards to my initially 3D workspace, meant this section's early design verification failed to catch the litany of issues I would later have with the windows.
+
+## Animation
+After the multiple windows tutorial, I attempted to follow an outdated tutorial on animating a Skeleton3D Godot node.
